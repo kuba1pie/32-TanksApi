@@ -45,6 +45,7 @@ module.exports = (app) => {
 
   // Delete a Item with ItemId
   app.delete("/users/:userId", users.delete);
+  app.delete("/client/:clientId", clients.delete);
 
   // Delete all Items
   //app.delete("/customers", customers.deleteAll);
