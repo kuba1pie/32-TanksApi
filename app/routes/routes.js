@@ -48,6 +48,7 @@ module.exports = (app) => {
   app.delete("/client/:clientId", clients.delete);
   app.delete("/orders/:orderId", orders.delete);
   app.delete("/tanks/:tankId", tanks.delete);
+  app.delete("/supplies/:supplyId", supplies.delete);
 
   // Delete all Items
   //app.delete("/customers", customers.deleteAll);

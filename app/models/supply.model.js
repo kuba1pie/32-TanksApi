@@ -79,7 +79,7 @@ Supply.meals = (req, result) => {
 
 
 Supply.remove = (id, result) => {
-  sql.query("DELETE FROM supplys WHERE supplyId = ?", id, (err, res) => {
+  sql.query("DELETE FROM supplies WHERE supplyId = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
