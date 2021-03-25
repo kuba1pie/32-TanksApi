@@ -1,0 +1,8 @@
+{
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/d401f49e-282c-40b6-a2b5-0872ed78636d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/TanksVueApi",
+  "appService.deploySubpath": "."
+}

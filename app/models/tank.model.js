@@ -19,11 +19,11 @@ Tank.create = (newTank, result) => {
 
     console.log("created tank: ", {
       id: res.insertId,
-      ...newTank
+      ...newTank,
     });
     result(null, {
       id: res.insertId,
-      ...newTank
+      ...newTank,
     });
   });
 };
@@ -43,45 +43,56 @@ Tank.findById = (tankId, result) => {
       return;
     }
 
-    result({
-      kind: "not_found"
-    }, null);
+    result(
+      {
+        kind: "not_found",
+      },
+      null
+    );
   });
 };
 
-Tank.getAll = result => {
-  sql.query("SELECT tanks.TankID, tanks.capacity AS TankCapacity, orders.name AS OrderName, orders.city AS OrderCity, clients.name AS ClientName FROM serwer53641_jr.tanks INNER JOIN serwer53641_jr.orders ON tanks.OrderID = orders.OrderID INNER JOIN serwer53641_jr.clients ON clients.ClientID=orders.ClientID ORDER BY tanks.TankID ASC", (err, res) => {
-  //sql.query("SELECT tanks.OrderID, orders.ClientID, clients.name AS ClientName, orders.name AS OrderName, GROUP_CONCAT(TankID) AS Tanks FROM serwer53641_jr.tanks INNER JOIN serwer53641_jr.orders ON tanks.OrderID=orders.OrderID INNER JOIN serwer53641_jr.clients ON orders.ClientID=clients.ClientID GROUP BY ClientID", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
+Tank.getAll = (result) => {
+  sql.query(
+    "SELECT tanks.TankID, tanks.capacity AS TankCapacity, orders.name AS OrderName, orders.city AS OrderCity, clients.name AS ClientName FROM serwer91700_tanks.tanks INNER JOIN serwer91700_tanks.orders ON tanks.OrderID = orders.OrderID INNER JOIN serwer91700_tanks.clients ON clients.ClientID=orders.ClientID ORDER BY tanks.TankID ASC",
+    (err, res) => {
+      //sql.query("SELECT tanks.OrderID, orders.ClientID, clients.name AS ClientName, orders.name AS OrderName, GROUP_CONCAT(TankID) AS Tanks FROM serwer91700_tanks.tanks INNER JOIN serwer91700_tanks.orders ON tanks.OrderID=orders.OrderID INNER JOIN serwer91700_tanks.clients ON orders.ClientID=clients.ClientID GROUP BY ClientID", (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+      result(null, res);
     }
-    result(null, res);
-  });
+  );
 };
 
 Tank.materials = (req, result) => {
-  console.log(req.params.TankID)
-  sql.query(`SELECT * FROM materials WHERE TankID = ${req.params.TankID}`, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
+  console.log(req.params.TankID);
+  sql.query(
+    `SELECT * FROM materials WHERE TankID = ${req.params.TankID}`,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
 
-    if (res.length) {
-      console.log("found meals for tank: ", res);
-      result(null, res);
-      return;
-    }
+      if (res.length) {
+        console.log("found meals for tank: ", res);
+        result(null, res);
+        return;
+      }
 
-    result({
-      kind: "not_found"
-    }, null);
-  });
+      result(
+        {
+          kind: "not_found",
+        },
+        null
+      );
+    }
+  );
 };
-
 
 Tank.remove = (id, result) => {
   sql.query("DELETE FROM tanks WHERE tankId = ?", id, (err, res) => {
@@ -93,9 +104,12 @@ Tank.remove = (id, result) => {
 
     if (res.affectedRows == 0) {
       // not found Tank with the id
-      result({
-        kind: "not_found"
-      }, null);
+      result(
+        {
+          kind: "not_found",
+        },
+        null
+      );
       return;
     }
 
@@ -117,19 +131,22 @@ Tank.updateById = (tankId, tank, result) => {
 
       if (res.affectedRows == 0) {
         // not found Tank with the id
-        result({
-          kind: "not_found"
-        }, null);
+        result(
+          {
+            kind: "not_found",
+          },
+          null
+        );
         return;
       }
 
       console.log("updated tank: ", {
         tankId: tankId,
-        ...tank
+        ...tank,
       });
       result(null, {
         tankId: tankId,
-        ...tank
+        ...tank,
       });
     }
   );
